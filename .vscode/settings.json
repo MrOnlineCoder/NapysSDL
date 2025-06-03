@@ -4,6 +4,7 @@
     "*.glsl": "c",
     "*.sl": "latex",
     ".env.json": "json",
-    "sdl.h": "c"
+    "sdl.h": "c",
+    "__locale": "c"
   }
 }
