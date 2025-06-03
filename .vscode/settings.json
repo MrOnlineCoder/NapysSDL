@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "*.cl": "cuda-cpp",
+    "*.glsl": "c",
+    "*.sl": "latex",
+    ".env.json": "json",
+    "sdl.h": "c"
+  }
+}
