@@ -31,10 +31,10 @@ There are 3 main objects in Napys:
 
 Napys works in some sense like LaTeX, where the output is built by executing a sequence of commands. A command may draw a text, change current font, color, size, draw an image, etc. **Command Lists** are used to store these commands.
 
-A **Command List** are agnostic of any implementation or rendering details, and therefore, they shall be processed by a **Renderer**, which actually builds the expected output. Currently, Napys provides one renderer, `NapysRendererTTF`, which uses `TTF_TextEngine` under the hood to arrange multiple `TTF_Text` objects into single rich text, that can be drawn with `SDL_Renderer`.
+**Command Lists** are agnostic of any implementation or rendering details, and therefore, they shall be processed by a **Renderer**, which actually builds the expected output. Currently, Napys provides one renderer, `NapysRendererTTF`, which uses `TTF_TextEngine` under the hood to arrange multiple `TTF_Text` objects into single rich text, that can be drawn with `SDL_Renderer`.
 
 Finally, to make things simpler, commands cannot use arbitrary values for font, color, style or image, all of that must be pre-defined in a **Context**, which acts like a registry of all available resources. The context is used to create command lists and renderers.
-In a game application, you may create a context for each scenario of your text usage, one context for tutorial hints, one for dialogue, another one for UI, etc, as each label in given scenario will likely use the same set of fonts, colors and images.
+In a game application, you may create a context for each scenario of your text usage, one context for tutorial hints, one for dialogue, another one for UI, etc, as each label in given scenario will likely use the same set of fonts, colors and images. This is partially inspired by Web development practices, where a fixed "theme" of colors, fonts and sizes are used everywhere in the application to align with project-wide design guidelines.
 
 That said, the typical setup for Napys looks as follows:
 
