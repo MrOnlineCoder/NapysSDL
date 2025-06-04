@@ -81,8 +81,6 @@ int main()
 
     NapysCommandList *cmd_list = NapysParseRichText("{{font:main}}Hello World from {{image:icon}}!{{color:red}} This will be red.{{newline}}{{color:green}}{{size:accent}}This will be green and big", NULL);
 
-    TTF_TextEngine *engine = TTF_CreateRendererTextEngine(renderer);
-
     NapysRendererTTF *ns_renderer = NapysCreateRendererTTF(nsctx, renderer);
 
     NapysExecuteCommandList(ns_renderer, cmd_list);
@@ -124,8 +122,6 @@ int main()
     NapysDestroyCommandList(cmd_list);
     NapysDestroyRendererTTF(ns_renderer);
     NapysDestroyContext(nsctx);
-
-    TTF_DestroyRendererTextEngine(engine);
 
     TTF_CloseFont(font);
     SDL_DestroyTexture(icon_texture);
