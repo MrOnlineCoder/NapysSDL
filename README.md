@@ -20,6 +20,8 @@ You can link against CMake target `Napys` to include the library in your project
 - High-level API for parsing and rendering templates.
 - Supports changing mid-text: color, font, size
 - Supports drawing inline images
+- TODO: support alignment change
+- TODO: support text wrapping as SDL TTF does for single texts
 
 ## Getting Started
 
