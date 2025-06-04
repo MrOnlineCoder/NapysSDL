@@ -430,8 +430,9 @@ bool NapysGetRenderedTextBounds(NapysRendererTTF *renderer, SDL_Rect *output);
  */
 typedef struct
 {
-    const char *left_tag;  ///< The left tag to use for rich text parsing, default is "{{"
-    const char *right_tag; ///< The right tag to use for rich text parsing, default is "}}"
+    const char *left_tag;                 ///< The left tag to use for rich text parsing, default is "{{"
+    const char *right_tag;                ///< The right tag to use for rich text parsing, default is "}}"
+    bool treat_newline_chars_as_commands; ///< If true, newline characters (\n) will be treated as {{newline}} commands, default is false
 } NapysRichTextOptions;
 
 /**

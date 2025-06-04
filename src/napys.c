@@ -847,6 +847,7 @@ NapysCommandList *NapysParseRichText(const char *text, const NapysRichTextOption
 
     const char *left_tag = options && options->left_tag ? options->left_tag : "{{";
     const char *right_tag = options && options->right_tag ? options->right_tag : "}}";
+    const bool treat_newline_chars_as_commands = options ? options->treat_newline_chars_as_commands : false;
 
     const int len = SDL_strlen(text);
 
@@ -864,7 +865,7 @@ NapysCommandList *NapysParseRichText(const char *text, const NapysRichTextOption
         const char cc = *cursor;
         const int index = cursor - text;
 
-        if (cursor[0] == left_tag[0] && index + lt_len <= len)
+        if (cc == left_tag[0] && index + lt_len <= len)
         {
             if (SDL_strncmp(cursor, left_tag, lt_len) == 0)
             {
@@ -902,13 +903,27 @@ NapysCommandList *NapysParseRichText(const char *text, const NapysRichTextOption
                 }
             }
         }
+        else if (treat_newline_chars_as_commands && cc == '\n')
+        {
+            // If newline character is treated as a command, add a newline command
+            if (last_text_start < cursor)
+            {
+                const char *text_content = SDL_strndup(last_text_start, cursor - last_text_start);
+                NapysAddDrawTextCommand(cmd_list, text_content);
+                SDL_free((void *)text_content); // Add draw text command makes a copy of the string
+            }
+
+            NapysAddNewlineCommand(cmd_list);
+            last_text_start = cursor + 1;
+            cursor++;
+        }
         else
         {
             cursor++;
         }
     }
 
-    if (last_text_start < cursor)
+    if (last_text_start < cursor && cursor < text + len)
     {
         // Add the last text segment after the last tag
         const char *text_content = SDL_strndup(last_text_start, cursor - last_text_start);

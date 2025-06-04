@@ -80,11 +80,16 @@ int main()
 
     NapysRegisterImage(nsctx, "icon", icon_texture);
 
+    NapysRichTextOptions options;
+    options.left_tag = "{{";
+    options.right_tag = "}}";
+    options.treat_newline_chars_as_commands = true;
+
     NapysCommandList *cmd_list = NapysParseRichText(
         "{{font:main}}{{size:main}}{{color:black}}Hello World from {{image:icon}}!{{color:red}} This will be red.{{newline}}{{color:green}}{{size:accent}}This will be green and big{{newline}}{{color:cyan}}Перевірка тексту українською"
-        "{{newline}}{{color:silver}}{{size:small}}Smaller text here"
+        "\n{{color:silver}}{{size:small}}Smaller text here"
         "{{newline}}{{image:icon}}{{color:red}}R{{color:orange}}A{{color:yellow}}I{{color:green}}N{{color:blue}}B{{color:magenta}}O{{color:lightblue}}W{{image:icon}}",
-        NULL);
+        &options);
 
     NapysRendererTTF *ns_renderer = NapysCreateRendererTTF(nsctx, renderer);
 
