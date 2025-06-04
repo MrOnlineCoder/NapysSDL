@@ -2,6 +2,8 @@
 
 **Napys** (from Ukrainian _напис_, meaning "label") is a SDL3 / SDL_ttf extension library for rendering formatted rich-texts, written in C.
 
+![Sample Output](examples/output.png)
+
 ## Installation
 
 Dependencies:

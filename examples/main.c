@@ -13,7 +13,7 @@ int main()
         return 1;
     }
 
-    SDL_Window *window = SDL_CreateWindow("Napys Test", 1024, 768, 0);
+    SDL_Window *window = SDL_CreateWindow("Napys Test", 800, 600, 0);
     if (window == NULL)
     {
         fprintf(stderr, "Could not create window: %s\n", SDL_GetError());
@@ -56,8 +56,9 @@ int main()
 
     NapysRegisterCSSColors(nsctx);
 
-    NapysRegisterSize(nsctx, "main", 24);
-    NapysRegisterSize(nsctx, "accent", 36);
+    NapysRegisterSize(nsctx, "main", 32);
+    NapysRegisterSize(nsctx, "small", 24);
+    NapysRegisterSize(nsctx, "accent", 42);
 
     SDL_Surface *icon_surface = SDL_LoadBMP("icon.bmp");
 
@@ -79,7 +80,11 @@ int main()
 
     NapysRegisterImage(nsctx, "icon", icon_texture);
 
-    NapysCommandList *cmd_list = NapysParseRichText("{{font:main}}Hello World from {{image:icon}}!{{color:red}} This will be red.{{newline}}{{color:green}}{{size:accent}}This will be green and big", NULL);
+    NapysCommandList *cmd_list = NapysParseRichText(
+        "{{font:main}}{{size:main}}{{color:black}}Hello World from {{image:icon}}!{{color:red}} This will be red.{{newline}}{{color:green}}{{size:accent}}This will be green and big{{newline}}{{color:cyan}}Перевірка тексту українською"
+        "{{newline}}{{color:silver}}{{size:small}}Smaller text here"
+        "{{newline}}{{image:icon}}{{color:red}}R{{color:orange}}A{{color:yellow}}I{{color:green}}N{{color:blue}}B{{color:magenta}}O{{color:lightblue}}W{{image:icon}}",
+        NULL);
 
     NapysRendererTTF *ns_renderer = NapysCreateRendererTTF(nsctx, renderer);
 
@@ -109,10 +114,10 @@ int main()
             }
         }
 
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
         NapysRenderTTF(ns_renderer, 50, 50);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
         SDL_RenderRect(renderer, &bounds);
         SDL_RenderPresent(renderer);
 
