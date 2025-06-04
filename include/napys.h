@@ -78,7 +78,7 @@ typedef struct
 const char *NapysGetError();
 
 /**
- * Create a new Napys context.asm
+ * Create a new Napys context
  *
  * Each context contains an independent registry of colors, sizes, fonts, images and other resources
  * that can be used in Napys commands during rendering.
