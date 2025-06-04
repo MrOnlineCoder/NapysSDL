@@ -367,23 +367,23 @@ typedef struct
  */
 typedef struct
 {
-    NapysContext *ctx;
-    TTF_TextEngine *engine;
-    SDL_Renderer *sdl_renderer;
+    NapysContext *ctx;          ///< The Napys context to use for rendering.
+    TTF_TextEngine *engine;     ///< The TTF_TextEngine used for rendering text.
+    SDL_Renderer *sdl_renderer; ///< The SDL_Renderer used for rendering images and text.
 
-    NapysFragmentTTF fragments[NAPYS_TTF_RENDERER_MAX_TEXTS];
-    int fragments_count;
-    int fragment_pointer;
+    NapysFragmentTTF fragments[NAPYS_TTF_RENDERER_MAX_TEXTS]; ///< Array of text or image fragments to render.
+    int fragments_count;                                      ///< The number of fragments currently in the array.
+    int fragment_pointer;                                     ///< The current pointer in the fragments array, used to add new fragments.
 
-    SDL_Color current_color;
-    TTF_Font *current_font;
-    NapysFontCache *current_font_cache;
-    int current_font_size;
+    SDL_Color current_color;            ///< The current drawing color, used for text and images.
+    TTF_Font *current_font;             ///< The current font used for rendering text.
+    NapysFontCache *current_font_cache; ///< The current font cache used for rendering text, must be the same as used by the current_font.
+    int current_font_size;              ///< The current font size in points, used for rendering text.
 
-    int draw_x;
-    int draw_y;
+    int draw_x; ///< The current x position for drawing text and images.
+    int draw_y; ///< The current y position for drawing text and images.
 
-    SDL_Rect bounds;
+    SDL_Rect bounds; ///< The bounds of the rendered text, updated during command list execution.
 } NapysRendererTTF;
 
 /**
