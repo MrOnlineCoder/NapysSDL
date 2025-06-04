@@ -54,6 +54,8 @@ int main()
 
     NapysRegisterFont(nsctx, font, "main");
 
+    NapysRegisterString(nsctx, "welcome", "Welcome text from a string variable!");
+
     NapysRegisterCSSColors(nsctx);
 
     NapysRegisterSize(nsctx, "main", 32);
@@ -86,9 +88,10 @@ int main()
     options.treat_newline_chars_as_commands = true;
 
     NapysCommandList *cmd_list = NapysParseRichText(
-        "{{font:main}}{{size:main}}{{color:black}}Hello World from {{image:icon}}!{{color:red}} This will be red.{{newline}}{{color:green}}{{size:accent}}This will be green and big{{newline}}{{color:cyan}}Перевірка тексту українською"
-        "\n{{color:silver}}{{size:small}}Smaller text here"
-        "{{newline}}{{image:icon}}{{color:red}}R{{color:orange}}A{{color:yellow}}I{{color:green}}N{{color:blue}}B{{color:magenta}}O{{color:lightblue}}W{{image:icon}}",
+        "{{font:main}}{{size:main}}{{color:black}}Hello World from {{image:icon}}!{{color:red}} This will be red.{{:newline}}{{color:green}}{{size:accent}}This will be green and big{{:newline}}{{color:cyan}}Перевірка тексту українською"
+        "\n{{color:silver}}{{size:small}}Smaller text here using \\n"
+        "\n{{color:gold}}{{size:main}}{{welcome}}"
+        "{{:newline}}{{image:icon}}{{color:red}}R{{color:orange}}A{{color:yellow}}I{{color:green}}N{{color:blue}}B{{color:magenta}}O{{color:lightblue}}W{{image:icon}}",
         &options);
 
     NapysRendererTTF *ns_renderer = NapysCreateRendererTTF(nsctx, renderer);

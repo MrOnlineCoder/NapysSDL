@@ -107,6 +107,18 @@ NapysContext *NapysCreateContext();
  */
 bool NapysRegisterFont(NapysContext *ctx, TTF_Font *font, const char *name);
 
+/**
+ * Register a string in the Napys context.
+ *
+ * The string can be used in Napys commands using the assigned key.
+ * The string is stored as a simple C string and is copied internally.
+ * If you are using rich-text parser, do not include colon (:) in the key name, as it is reserved for commands.
+ *
+ * @param ctx The Napys context to register the string in.
+ * @param key The key to register the string under.
+ * @param value The string value to register.
+ * @return true on success, false on failure (use NapysGetError() to get the error message).
+ */
 bool NapysRegisterString(NapysContext *ctx, const char *key, const char *value);
 
 /**
@@ -178,6 +190,7 @@ typedef enum
 {
     NAPYS_COMMAND_TYPE_NONE,
     NAPYS_COMMAND_TYPE_DRAW_TEXT,
+    NAPYS_COMMAND_TYPE_USE_STRING,
     NAPYS_COMMAND_TYPE_SET_COLOR,
     NAPYS_COMMAND_TYPE_DRAW_IMAGE,
     NAPYS_COMMAND_TYPE_SET_FONT,
@@ -325,6 +338,20 @@ bool NapysAddNewlineCommand(NapysCommandList *list);
  */
 bool NapysAddDrawImageCommand(NapysCommandList *list, const char *image_name);
 
+/**
+ * Add a use string command to the command list.
+ *
+ * This function will add a command to use a string from the context registry.
+ * The string must be registered in the context registry before command list is executed.
+ * The string will be drawn at the current drawing position.
+ * Executing a command with an unregistered string will have no effect.
+ *
+ * @param list The command list to add the command to.
+ * @param key The key of the string to use. Must be registered in the context at the time of execution.
+ * @return true on success, false on failure (use NapysGetError() to get the error message).
+ */
+bool NapysAddUseStringCommand(NapysCommandList *list, const char *key);
+
 typedef struct
 {
     TTF_Text *text;
@@ -450,7 +477,8 @@ typedef struct
  * - {{color:<color_name>}} - Set the drawing color to the specified color name.
  * - {{size:<size_name>}} - Set the font size to the specified size name.
  * - {{image:<image_name>}} - Draw an image at the current position, the image must be registered in the context.
- * - {{newline}} - Move the drawing position to the next line.
+ * - {{:newline}} - Move the drawing position to the next line.
+ * - {{<name>}} - Use a string from the context registry with the specified name.
  *
  * The requested resources shall be registered in the Napys context before executing the command list.
  *

@@ -43,7 +43,11 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SDL3_ttf)
 
 set(LIB_SOURCES 
-    src/napys.c
+    src/napys_common.c
+    src/napys_command_list.c
+    src/napys_parser.c
+    src/napys_renderer_ttf.c
+    src/napys_context.c
 )
 
 add_library(
